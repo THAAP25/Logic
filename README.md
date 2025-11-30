@@ -182,3 +182,4 @@ Time was measured with the `time` command.
 | cycle6.txt | 6 | 6 | 18 | 48 | 0.003 | Y |
 | bipartite_k3_3.txt | 6 | 9 | 21 | 72 | 0.004 | Y |
 | complete_k6.txt | 6 | 15 | 27 | 120 | 0.006 | Y |
+| k20_input.txt | 20 | 190 | 19420 | 38940 | 47.5 | U |
