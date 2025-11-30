@@ -1,4 +1,4 @@
-# Example homework solution 
+# Homework solution 
 
 This is an example solution to homework for Propositional and Predicate Logic (NAIL062). The provided Python code encodes, solves, and decodes the graph partitioning problem via reduction to SAT (i.e. propositional logic formula).
 
