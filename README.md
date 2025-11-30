@@ -9,9 +9,9 @@ cd glucose-main/simp
 make
 ```
 
-This example contains a compiled UNIX binary of the Glucose solver. For optimal experience, we encourage the user to compile the SAT solver themselves. Note that the solver, as well as the Python script, are assumed to work on UNIX-based systems. In case you prefer using Windows, we recommend to use WSL.
+This example contains a compiled UNIX binary of the Glucose solver. For optimal experience, we encourage the user to compile the SAT solver themselves. Note that the solver, as well as the Python script, are assumed to work on UNIX-based systems. In case you prefer using Windows, we recommend to use WSL (which is what has been used).
 
-Note that the provided encoding for the graph partitioning problem is not the only existing encoding. Usually, there are several equivalent encodings one might use. Choosing the encoding is up to the user based on experience and experiments.
+Provided encoding for the graph partitioning problem is not the only existing encoding. Usually, there are several equivalent encodings one might use. Choosing the encoding is up to the user based on experience and experiments.
 
 The following documentation is an acceptable solution format that should accompany your code.
 
@@ -19,7 +19,7 @@ The following documentation is an acceptable solution format that should accompa
 
 ## Problem description
 
-The graph partitioning problem asks whether a given graph $G(V,E)$ with $2n$ nodes can be partitioned into two disjoint sets $U$ and $W$, each of size exactly $n$, such that at most $k$ edges cross between the two sets. This is a fundamental problem in graph theory with applications in circuit design, network optimization, and parallel computing.
+The graph partitioning problem asks whether a given graph $G(V,E)$ with $2n$ nodes can be partitioned into two disjoint sets $U$ and $W$, each of size exactly $n$, such that at most $k$ edges cross between the two sets.
 
 Formally, given:
 - A graph $G = (V, E)$ where $|V| = 2n$
@@ -51,7 +51,7 @@ The problem is encoded using three sets of variables:
 
 2. **Edge variables** $e_j$ for $j \in \{0, 1, \ldots, |E|-1\}$: Variable $e_j$ is true if and only if edge $j$ crosses between sets $U$ and $W$.
 
-3. **Counter variables** $s_{i,j}$: Auxiliary variables used for cardinality constraints (sequential counter encoding).
+3. **Counter variables** $s_{i,j}$: Auxiliary variables used for cardinality constraint.
 
 To represent the decision problem of whether a valid partition exists, we use the following constraints:
 
@@ -77,17 +77,17 @@ Together, these encode $e_j \iff (x_u \oplus x_v)$ (the edge variable is true if
 
 Exactly $n$ nodes must be in set $U$:
 
-- **At most $n$ nodes in $U$:** Using sequential counter encoding (Sinz, 2005), we encode that at most $n$ of the variables $\{x_0, x_1, \ldots, x_{2n-1}\}$ are true.
+- **At most $n$ nodes in $U$:** We encode that at most $n$ of the variables $\{x_0, x_1, \ldots, x_{2n-1}\}$ are true.
 
 - **At least $n$ nodes in $U$:** Equivalently, at most $n$ of the variables $\{\neg x_0, \neg x_1, \ldots, \neg x_{2n-1}\}$ are true (i.e., at most $n$ nodes in $W$).
 
-The sequential counter encoding for "at most $k$ of $m$ literals are true" uses $O(mk)$ auxiliary variables and clauses, providing an efficient encoding.
+Encoding for "at most $k$ of $m$ literals are true" uses $O(mk)$ auxiliary variables and clauses, providing an efficient encoding.
 
 ### Crossing edges bound
 
 At most $k$ edges cross between the sets:
 
-Using sequential counter encoding on edge variables $\{e_0, e_1, \ldots, e_{|E|-1}\}$, we encode that at most $k$ of these variables are true.
+Encoding on edge variables $\{e_0, e_1, \ldots, e_{|E|-1}\}$, we encode that at most $k$ of these variables are true.
 
 ### Complete encoding
 
@@ -107,7 +107,7 @@ Command-line options:
 * `-i INPUT`, `--input INPUT` : The instance file describing the graph.
 * `-o OUTPUT`, `--output OUTPUT` : Output file for the DIMACS CNF formula. Default: "formula.cnf".
 * `-s SOLVER`, `--solver SOLVER` : The SAT solver to be used (auto-detected if not specified).
-* `-v {0,1}`, `--verb {0,1}` : Verbosity of the SAT solver. Default: 0.
+* `-v {0,1}`, `--verb {0,1}` : Verbose of the SAT solver. Default: 0.
 * `--print-cnf` : Print the generated CNF formula in DIMACS format to stdout.
 * `--stats` : Print statistics about the encoding and solver execution.
 * `--n N` : Half the number of nodes (for command-line instance specification).
