@@ -2,7 +2,7 @@
 
 This is an example solution to homework for Propositional and Predicate Logic (NAIL062). The provided Python code encodes, solves, and decodes the graph partitioning problem via reduction to SAT (i.e. propositional logic formula).
 
-The SAT solver used is [Glucose](https://www.labri.fr/perso/lsimon/research/glucose/), more specifically [Glucose 4.2.1](https://github.com/audemard/glucose/releases/tag/4.2.1). The source code is compiled using
+The SAT solver used is [Glucose 4.2.1](https://github.com/audemard/glucose/releases/tag/4.2.1). The source code is compiled using
 
 ```
 cd glucose-main/simp
@@ -97,7 +97,7 @@ The CNF formula is the conjunction of all the above constraints. A satisfying as
 
 Basic usage: 
 ```
-graph_partition.py [-h] [-i INPUT] [-o OUTPUT] [-s SOLVER] [-v {0,1}] 
+Untitled-1.py [-h] [-i INPUT] [-o OUTPUT] [-s SOLVER] [-v {0,1}] 
                    [--print-cnf] [--stats] [--n N] [--k K] [--edges EDGES]
 ```
 
@@ -142,17 +142,17 @@ Lines starting with `#` or `c` are treated as comments.
 
 Run with input file:
 ```bash
-python3 graph_partition.py -i instances/small_sat.txt --stats -v 1
+python3 Untitled-1.py -i instances/small_sat.txt --stats -v 1
 ```
 
 Run with command-line parameters:
 ```bash
-python3 graph_partition.py --n 3 --k 2 --edges "0,1 1,2 2,3 3,4 4,5 5,0" --stats
+python3 Untitled-1.py --n 3 --k 2 --edges "0,1 1,2 2,3 3,4 4,5 5,0" --stats
 ```
 
 Interactive mode (no arguments):
 ```bash
-python3 graph_partition.py
+python3 Untitled-1.py
 ```
 
 ## Example instances
@@ -173,9 +173,7 @@ python3 graph_partition.py
 
 ## Experiments
 
-Experiments were run on Intel Core i5-1035G1 CPU (1.0 GHz) and 8 GB RAM on Ubuntu inside WSL2 (Windows 11). Time was measured with the `time` command.
-
-We focus on grid graphs of increasing size to observe how solver performance scales with problem size. All instances use $k$ set to allow a valid solution (approximately half the edges).
+Time was measured with the `time` command.
 
 | **Instance** | **Nodes** | **Edges** | **Variables** | **Clauses** | **Time (s)** | **Solvable?** |
 |:-------------|----------:|----------:|--------------:|------------:|-------------:|:-------------:|
@@ -184,27 +182,3 @@ We focus on grid graphs of increasing size to observe how solver performance sca
 | cycle6.txt | 6 | 6 | 18 | 48 | 0.003 | Y |
 | bipartite_k3_3.txt | 6 | 9 | 21 | 72 | 0.004 | Y |
 | complete_k6.txt | 6 | 15 | 27 | 120 | 0.006 | Y |
-| grid_4x4.txt | 16 | 24 | 156 | 864 | 0.024 | Y |
-| grid_6x6.txt | 36 | 60 | 2156 | 8640 | 0.156 | Y |
-| grid_8x8.txt | 64 | 112 | 7168 | 43008 | 1.234 | Y |
-| grid_10x10.txt | 100 | 180 | 18100 | 108900 | 8.567 | Y |
-
-### Observations
-
-Looking at the data, we can observe that:
-
-1. **Scaling behavior**: The solving time grows rapidly with the number of nodes and edges. The grid graphs show roughly exponential growth in solving time.
-
-2. **Encoding efficiency**: The number of variables and clauses grows quadratically with problem size due to the cardinality constraint encoding. For a graph with $2n$ nodes and $m$ edges, we use approximately $2n + m + O(nk + mk)$ variables.
-
-3. **Satisfiable vs. unsatisfiable**: For small instances, unsatisfiable instances (like `small_unsat.txt`) can be solved quickly because the solver can prove infeasibility through conflict analysis. However, this doesn't hold for all instances.
-
-4. **Problem structure**: Structured graphs like grids are generally easier to partition than random graphs or complete graphs, as evidenced by the relatively good performance on grid instances.
-
-5. **Tightness of $k$**: The choice of $k$ significantly impacts difficulty. Setting $k$ to exactly the minimum number of crossing edges makes the problem harder than setting it higher (more feasible solutions) or lower (quickly proven unsatisfiable).
-
-Feel free to conduct more comprehensive experiments in your projects! Interesting directions include:
-- Testing random graphs with varying edge densities
-- Exploring the phase transition between satisfiable and unsatisfiable instances
-- Comparing different cardinality constraint encodings
-- Analyzing the impact of $k$ on solving time for fixed graph structure
